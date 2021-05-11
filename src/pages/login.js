@@ -16,5 +16,9 @@ export default function Login() {
   useEffect(() => {
     document.title = 'Login - Instagram';
   }, []);
-  return <p>I am the login page</p>;
+  return (
+    <div className="container flex mx-auto max-w-screen-md items-center h-screen">
+      <p>I am the login page</p>
+    </div>
+  );
 }
