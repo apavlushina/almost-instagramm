@@ -1,11 +1,11 @@
-import { firebase, FieldValue } from '../lib/firebase';
+import { firebase, FieldValue } from '../lib/firebase'
 
 export async function doesUsernameExist(username) {
   const result = await firebase
     .firestore()
     .collection('users')
     .where('username', '==', username)
-    .get();
+    .get()
 
-  return result.docs.map((user) => user.data().length > 0);
+  return result.docs.map((user) => user.data().length > 0)
 }

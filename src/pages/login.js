@@ -1,33 +1,33 @@
-import { useState, useContext, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import FirebaseContext from '../context/firebase';
-import * as ROUTES from '../constants/routes';
+import { useState, useContext, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import FirebaseContext from '../context/firebase'
+import * as ROUTES from '../constants/routes'
 
 export default function Login() {
-  const history = useHistory();
-  const { firebase } = useContext(FirebaseContext);
+  const history = useHistory()
+  const { firebase } = useContext(FirebaseContext)
 
-  const [emailAddress, setEmailAddress] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const isInvalid = password === '' || emailAddress === '';
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const isInvalid = password === '' || emailAddress === ''
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-      history.push(ROUTES.DASHBOARD);
+      await firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+      history.push(ROUTES.DASHBOARD)
     } catch (error) {
-      setEmailAddress('');
-      setPassword('');
-      setError(error.message);
+      setEmailAddress('')
+      setPassword('')
+      setError(error.message)
     }
-  };
+  }
 
   useEffect(() => {
-    document.title = 'Login - Instagram';
-  }, []);
+    document.title = 'Login - Instagram'
+  }, [])
   return (
     <div className="container flex mx-auto max-w-screen-md items-center h-screen">
       <div className="flex w-3/5">
@@ -76,5 +76,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }

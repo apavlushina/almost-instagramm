@@ -1,9 +1,9 @@
-import Firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import Firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 
 // do it once to make a seed
-// import { seedDatabase } from '../seed';
+// import { seedDatabase } from '../seed'
 
 const config = {
   apiKey: 'AIzaSyDWPiIdimGG6MYoeHd3swT-fVyTP_LR84g',
@@ -12,11 +12,11 @@ const config = {
   storageBucket: 'almost-instagramm.appspot.com',
   messagingSenderId: '619227423846',
   appId: '1:619227423846:web:481e85ee6c1f87197739a7'
-};
+}
 
-const firebase = Firebase.initializeApp(config);
-const { FieldValue } = Firebase.firestore;
+const firebase = Firebase.initializeApp(config)
+const { FieldValue } = Firebase.firestore
 
-// seedDatabase(firebase);
+// seedDatabase(firebase)
 
-export { firebase, FieldValue };
+export { firebase, FieldValue }

@@ -1,35 +1,35 @@
-import { useState, useContext, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import FirebaseContext from '../context/firebase';
-import * as ROUTES from '../constants/routes';
-import { doesUsernameExist } from '../services/firebase';
+import { useState, useContext, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import FirebaseContext from '../context/firebase'
+import * as ROUTES from '../constants/routes'
+import { doesUsernameExist } from '../services/firebase'
 
 export default function Signup() {
-  const history = useHistory();
-  const { firebase } = useContext(FirebaseContext);
+  const history = useHistory()
+  const { firebase } = useContext(FirebaseContext)
 
-  const [username, setUsername] = useState('');
-  const [fullname, setFullname] = useState('');
+  const [username, setUsername] = useState('')
+  const [fullname, setFullname] = useState('')
 
-  const [emailAddress, setEmailAddress] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const isInvalid = password === '' || emailAddress === '';
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const isInvalid = password === '' || emailAddress === ''
 
   const handleSignup = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const checkUsernames = await doesUsernameExist(username);
-    const usernameExists = !checkUsernames.length;
+    const checkUsernames = await doesUsernameExist(username)
+    const usernameExists = !checkUsernames.length
     if (usernameExists) {
       try {
         const createdUserResult = await firebase
           .auth()
-          .createUserWithEmailAndPassword(emailAddress, password);
+          .createUserWithEmailAndPassword(emailAddress, password)
 
         await createdUserResult.user.updateProfile({
           displayName: username
-        });
+        })
 
         await firebase.firestore().collection('users').add({
           userId: createdUserResult.user.uid,
@@ -38,23 +38,23 @@ export default function Signup() {
           emailAddress: emailAddress.toLowerCase(),
           following: [],
           dateCreated: Date.now()
-        });
+        })
 
-        history.push(ROUTES.DASHBOARD);
+        history.push(ROUTES.DASHBOARD)
       } catch (error) {
-        setFullname('');
-        setEmailAddress('');
-        setPassword('');
-        setError(error.message);
+        setFullname('')
+        setEmailAddress('')
+        setPassword('')
+        setError(error.message)
       }
     } else {
-      setError('That username exists, please try another');
+      setError('That username exists, please try another')
     }
-  };
+  }
 
   useEffect(() => {
-    document.title = 'Sign Up - Instagram';
-  }, []);
+    document.title = 'Sign Up - Instagram'
+  }, [])
   return (
     <div className="container flex mx-auto max-w-screen-md items-center h-screen">
       <div className="flex w-3/5">
@@ -121,5 +121,5 @@ export default function Signup() {
         </div>
       </div>
     </div>
-  );
+  )
 }
